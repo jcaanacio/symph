@@ -14,6 +14,19 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+  redis:
+    image: redis:7-alpine
+    container_name: dev-redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   db-migration:
     container_name: db-migration
@@ -48,6 +61,7 @@ services:
       - NODE_ENV=development
       - DB_CONNECTION_URI=postgres://symph:symph@db/symph?sslmode=disable
       - TELEMETRY_ENABLED=false
+      - REDIS_URL=redis://redis:6379
     volumes:
       - ./server/src:/app/src
     extra_hosts:
@@ -93,4 +107,6 @@ services:
 
 volumes:
   postgres-data:
+    driver: local
+  redis-data:
     driver: local

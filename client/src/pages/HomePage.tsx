@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom"; // ✅ correct import
 import reactLogo from "../assets/react.svg";
 
 function HomePage() {
@@ -10,8 +10,15 @@ function HomePage() {
         </a>
       </div>
       <h1>Symph coding assignment page 1</h1>
+
       <div className="py-4">
-        <Link to="/second">Go to second page</Link>
+        <Link to="/second" className="text-blue-400 underline block mb-2">
+          Go to second page
+        </Link>
+
+        <Link to="/dashboard" className="text-green-400 underline">
+          Go to Dashboard
+        </Link>
       </div>
     </div>
   );

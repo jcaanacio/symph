@@ -16,6 +16,11 @@ import { SymphError } from "./domain/SymphError";
 import { UriInMemoryRepository } from "./infra/repositories/UriInMemoryRepository";
 import { initRedis, redis } from "./infra/cache/redis";
 import { Uuid } from "./infra/utils/uuid";
+
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./infra/utils/rest-docs";
+
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 //middleware
 app.use(cors());
 app.use(express.json());
